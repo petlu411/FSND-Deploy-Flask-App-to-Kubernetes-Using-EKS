@@ -1,19 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: simpe-jwt-api2
+  name: simple-jwt-api
 spec:
   type: LoadBalancer
   ports:
     - port: 80
       targetPort: 8080
   selector:
-    app: simpe-jwt-api2
+    app: simple-jwt-api
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: simpe-jwt-api2
+  name: simple-jwt-api
 spec:
   replicas: 3
   strategy:
@@ -23,14 +23,14 @@ spec:
       maxSurge: 2
   selector:
     matchLabels:
-      app: simpe-jwt-api2
+      app: simple-jwt-api
   template:
     metadata:
       labels:
-        app: simpe-jwt-api2
+        app: simple-jwt-api
     spec:
       containers:
-        - name: simpe-jwt-api2
+        - name: simple-jwt-api
           image: CONTAINER_IMAGE
           securityContext:
             privileged: false
