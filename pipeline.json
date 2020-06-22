@@ -1,0 +1,73 @@
+{
+    "pipeline": {
+        "name": "Udacity-first-stack-CodePipelineGitHub-I39F410CE7NI",
+        "roleArn": "arn:aws:iam::870653356349:role/Udacity-first-stack-CodePipelineServiceRole-1NNCW9HSF2VCT",
+        "artifactStore": {
+            "type": "S3",
+            "location": "udacity-first-stack-codepipelineartifactbucket-7xdcnyzfs0om"
+        },
+        "stages": [
+            {
+                "name": "Source",
+                "actions": [
+                    {
+                        "name": "App",
+                        "actionTypeId": {
+                            "category": "Source",
+                            "owner": "ThirdParty",
+                            "provider": "GitHub",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "Branch": "master",
+                            "OAuthToken": "****",
+                            "Owner": "petlu411",
+                            "Repo": "FSND-Deploy-Flask-App-to-Kubernetes-Using-EKS"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "App"
+                            }
+                        ],
+                        "inputArtifacts": []
+                    }
+                ]
+            },
+            {
+                "name": "Build",
+                "actions": [
+                    {
+                        "name": "Build",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "ProjectName": "Udacity-first-stack"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "BuildOutput"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "App"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "version": 7
+    },
+    "metadata": {
+        "pipelineArn": "arn:aws:codepipeline:eu-north-1:870653356349:Udacity-first-stack-CodePipelineGitHub-I39F410CE7NI",
+        "created": 1592752688.404,
+        "updated": 1592766033.263
+    }
+}
